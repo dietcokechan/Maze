@@ -8,5 +8,7 @@ set(SDL2_DIR "${CMAKE_SOURCE_DIR}/SDL2/cmake")
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
-add_executable(Maze src/main.c)
+add_executable(Maze src/main.c
+                    src/init_sdl.c
+                )
 target_link_libraries(Maze ${SDL2_LIBRARIES})

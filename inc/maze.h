@@ -1,3 +1,4 @@
+#pragma once
 #ifndef MAZE_H
 #define MAZE_H
 
@@ -10,8 +11,23 @@
 /*sdl*/
 #include <SDL.h>
 
-/*screen dimensions*/
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+/*macros*/
+#define TITLE "SDL"
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
+#define TRUE 1
+#define FALSE 0
+
+/*structs*/
+typedef struct instance
+{
+    SDL_Window *window;
+    SDL_Surface *win_surface;
+} instance;
+
+/*functions*/
+void create_window(char* title, instance* sdl_ins);
+void window_perm();
+void destroy_window(instance* sdl_ins);
 
 #endif /* MAZE_H */
