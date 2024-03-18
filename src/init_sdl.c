@@ -1,44 +1,59 @@
 #include "../inc/maze.h"
 
-void create_window(char* title, instance* sdl_ins)
+/**
+ * init_instance - initialize sdl instance
+ * @instance: sdl instance
+ * Return: 0 or 1
+ */
+int init_instance(SDL_Instance *instance)
 {
-    sdl_ins->window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    if (sdl_ins->window == NULL)
-    {
-        printf("Window could not be created! SDl_Error: %s\n", SDL_GetError());
-    }
-    else
-    {
-        // get window surface
-        sdl_ins->win_surface = SDL_GetWindowSurface(sdl_ins->window);
-        // fill the surface white
-        SDL_FillRect(sdl_ins->win_surface, NULL, SDL_MapRGB(sdl_ins->win_surface->format, 0xFF, 0xFF, 0xFF));
-        // update the surface
-        SDL_UpdateWindowSurface(sdl_ins->window);
+	/* initialize */
+	if (SDL_Init(SDL_INIT_VIDEO) != 0)
+	{
+		fprintf(stderr, "Unable to initialize SDL: %s\n", SDL_GetError());
+		return (1);
+	}
 
-        window_perm();
-    }
+	/* create a new window instance */
+	instance->window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_CENTERED,
+		 SDL_WINDOWPOS_CENTERED, SCREEN_HEIGHT, SCREEN_WIDTH, 0);
+	if (instance->window == NULL)
+	{
+		fprintf(stderr, "SDL_CreateWindow Error: %s\n", SDL_GetError());
+		SDL_Quit();
+		return (1);
+	}
+
+	/* create a new renderer instance linked to window */
+	instance->renderer = SDL_CreateRenderer(instance->window, -1,
+		 SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	if (instance->renderer == NULL)
+	{
+		SDL_DestroyWindow(instance->window);
+		fprintf(stderr, "SDL_CreateRenderer Error: %s\n", SDL_GetError());
+		SDL_Quit();
+		return (1);
+	}
+	return (0);
 }
 
-void window_perm()
+int poll_events()
 {
-    // get window to stay up
-    SDL_Event e;
-    int quit = FALSE;
-    while (quit == FALSE)
-    {
-        while (SDL_PollEvent(&e))
-        {
-            if (e.type == SDL_QUIT)
-                quit = TRUE;
-        }
-    }
-}
+	SDL_Event event;
+	SDL_KeyboardEvent key;
 
-void destroy_window(instance* sdl_ins)
-{
-    // destroy window
-    SDL_DestroyWindow(sdl_ins->window);
-    // quit SDL subsystems
-    SDL_Quit();
+	while (SDL_PollEvent(&event))
+	{
+		switch(event.type)
+		{
+			case SDL_QUIT:
+				return (1);
+			case SDL_KEYDOWN:
+				key = event.key;
+				if(key.keysym.scancode == 0x29)
+					return (1);
+				break;
+		}
+	}
+	return (0);
 }

@@ -1,4 +1,3 @@
-#pragma once
 #ifndef MAZE_H
 #define MAZE_H
 
@@ -19,15 +18,14 @@
 #define FALSE 0
 
 /*structs*/
-typedef struct instance
+typedef struct SDL_Instance
 {
-    SDL_Window *window;
-    SDL_Surface *win_surface;
-} instance;
+	SDL_Window *window;
+	SDL_Renderer *renderer;
+} SDL_Instance;
 
 /*functions*/
-void create_window(char* title, instance* sdl_ins);
-void window_perm();
-void destroy_window(instance* sdl_ins);
+int init_instance(SDL_Instance *);
+int poll_events();
 
 #endif /* MAZE_H */

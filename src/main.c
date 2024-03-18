@@ -8,16 +8,25 @@
  */
 int main(int argc, char **argv)
 {
-    instance sdl_ins = {NULL, NULL};
+	SDL_Instance instance = {NULL, NULL};
 
-    // init sdl
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
-    {
-        printf("SDL could not initalize! SDL_Error: %s\n", SDL_GetError());
-    }
+	if (init_instance(&instance) != 0)
+		return (1);
 
-    create_window(TITLE, &sdl_ins);
-    destroy_window(&sdl_ins);
-
-    return (0);
+	while (TRUE)
+	{
+		SDL_GetRenderDrawColor(instance.renderer, 0, 0, 0, 0);
+		SDL_RenderClear(instance.renderer);
+		if (poll_events() == 1)
+			break;
+		/*example*/
+		SDL_SetRenderDrawColor(instance.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+		SDL_RenderDrawLine(instance.renderer, 10, 10, 100, 100);
+		/*example*/
+		SDL_RenderPresent(instance.renderer);
+	}
+	SDL_DestroyRenderer(instance.renderer);
+	SDL_DestroyWindow(instance.window);
+	SDL_Quit();
+	return (0);
 }
