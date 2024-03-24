@@ -16,7 +16,7 @@ int init_instance(SDL_Instance *instance)
 
 	/* create a new window instance */
 	instance->window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_CENTERED,
-		 SDL_WINDOWPOS_CENTERED, SCREEN_HEIGHT, SCREEN_WIDTH, 0);
+		 SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
 	if (instance->window == NULL)
 	{
 		fprintf(stderr, "SDL_CreateWindow Error: %s\n", SDL_GetError());

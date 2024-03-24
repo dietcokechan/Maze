@@ -12,8 +12,8 @@
 
 /*macros*/
 #define TITLE "SDL"
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH 1024
+#define SCREEN_HEIGHT 512
 #define TRUE 1
 #define FALSE 0
 
@@ -27,5 +27,6 @@ typedef struct SDL_Instance
 /*functions*/
 int init_instance(SDL_Instance *);
 int poll_events();
+void draw_player(SDL_Instance *);
 
 #endif /* MAZE_H */

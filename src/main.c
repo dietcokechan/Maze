@@ -19,10 +19,7 @@ int main(int argc, char **argv)
 		SDL_RenderClear(instance.renderer);
 		if (poll_events() == 1)
 			break;
-		/*example*/
-		SDL_SetRenderDrawColor(instance.renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-		SDL_RenderDrawLine(instance.renderer, 10, 10, 100, 100);
-		/*example*/
+		draw_player(&instance);
 		SDL_RenderPresent(instance.renderer);
 	}
 	SDL_DestroyRenderer(instance.renderer);
