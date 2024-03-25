@@ -10,6 +10,6 @@ include_directories(${SDL2_INCLUDE_DIRS})
 
 add_executable(Maze src/main.c
                     src/init_sdl.c
-                    src/player.c
+                    src/display.c
                 )
 target_link_libraries(Maze ${SDL2_LIBRARIES})

@@ -30,9 +30,18 @@ typedef struct Player
 	float angle;
 } Player;
 
+typedef struct Map
+{
+	int x;
+	int y;
+	int size;
+	int map[];
+} Map;
+
 /*functions*/
 int init_instance(SDL_Instance *);
 int poll_events(Player *);
 void draw_player(Player *, SDL_Instance *);
+void draw_map(Map *, SDL_Instance *);
 
 #endif /* MAZE_H */

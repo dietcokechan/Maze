@@ -10,8 +10,20 @@ int main(int argc, char **argv)
 {
 	SDL_Instance instance = {NULL, NULL};
 	Player player;
-	player.rect.x = player.rect.y = 0;
-	player.rect.h = player.rect.w = 24;
+	Map map = {8, 8, 64, {
+		1,1,1,1,1,1,1,1,
+		1,0,0,0,0,0,0,1,
+		1,0,1,1,0,0,0,1,
+		1,0,0,0,0,0,0,1,
+		1,0,0,0,0,0,0,1,
+		1,0,0,0,0,1,0,1,
+		1,0,0,0,0,0,0,1,
+		1,1,1,1,1,1,1,1
+	}};
+	player.rect.x = SCREEN_WIDTH / 4;
+	player.rect.y = SCREEN_HEIGHT / 2;
+	player.rect.h = player.rect.w = 12;
+
 
 	if (init_instance(&instance) != 0) return (1);
 
@@ -23,6 +35,7 @@ int main(int argc, char **argv)
 		// 	break;
 		poll_events(&player);
 		draw_player(&player, &instance);
+		draw_map(&map, &instance);
 		SDL_SetRenderDrawColor(instance.renderer, 0x80, 0x80, 0x80, 0x80);
 		SDL_RenderPresent(instance.renderer);
 	}
