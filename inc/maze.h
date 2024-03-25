@@ -24,9 +24,15 @@ typedef struct SDL_Instance
 	SDL_Renderer *renderer;
 } SDL_Instance;
 
+typedef struct Player
+{
+	SDL_Rect rect;
+	float angle;
+} Player;
+
 /*functions*/
 int init_instance(SDL_Instance *);
-int poll_events();
-void draw_player(SDL_Instance *);
+int poll_events(Player *);
+void draw_player(Player *, SDL_Instance *);
 
 #endif /* MAZE_H */

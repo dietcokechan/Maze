@@ -37,22 +37,39 @@ int init_instance(SDL_Instance *instance)
 	return (0);
 }
 
-int poll_events()
+int poll_events(Player *player)
 {
-	SDL_Event event;
-	SDL_KeyboardEvent key;
+	SDL_Event e;
 
-	while (SDL_PollEvent(&event))
+	while (SDL_PollEvent(&e))
 	{
-		switch(event.type)
+		if (e.type == SDL_KEYDOWN)
 		{
-			case SDL_QUIT:
-				return (1);
-			case SDL_KEYDOWN:
-				key = event.key;
-				if(key.keysym.scancode == 0x29)
-					return (1);
+			switch (e.key.keysym.sym)
+			{
+			case SDLK_w:
+				player->rect.y -= 4;
 				break;
+			case SDLK_s:
+				player->rect.y += 4;
+				break;
+			case SDLK_a:
+				player->rect.x -= 4;
+				break;
+			case SDLK_d:
+				player->rect.x += 4;
+				break;
+			case SDLK_ESCAPE:
+				return (1);
+				break;
+
+			default:
+				break;
+			}
+		}
+		else if (e.type == SDL_QUIT)
+		{
+			return (1);
 		}
 	}
 	return (0);

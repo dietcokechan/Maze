@@ -9,17 +9,21 @@
 int main(int argc, char **argv)
 {
 	SDL_Instance instance = {NULL, NULL};
+	Player player;
+	player.rect.x = player.rect.y = 0;
+	player.rect.h = player.rect.w = 24;
 
-	if (init_instance(&instance) != 0)
-		return (1);
+	if (init_instance(&instance) != 0) return (1);
 
-	while (TRUE)
+	while (poll_events(&player) != 1)
 	{
 		SDL_GetRenderDrawColor(instance.renderer, 0, 0, 0, 0);
 		SDL_RenderClear(instance.renderer);
-		if (poll_events() == 1)
-			break;
-		draw_player(&instance);
+		// if (poll_events(&player) == 1)
+		// 	break;
+		poll_events(&player);
+		draw_player(&player, &instance);
+		SDL_SetRenderDrawColor(instance.renderer, 0x80, 0x80, 0x80, 0x80);
 		SDL_RenderPresent(instance.renderer);
 	}
 	SDL_DestroyRenderer(instance.renderer);
