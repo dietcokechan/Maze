@@ -1,5 +1,10 @@
 #include "../inc/maze.h"
 
+/**
+ * draw_player - draws rect for player and line for direction
+ * @player: player struct
+ * @instance: sdl instance
+ */
 void draw_player(Player *player, SDL_Instance *instance)
 {
 	SDL_SetRenderDrawColor(instance->renderer, 0xFF, 0xFF, 0x00, 0xFF);
@@ -11,10 +16,15 @@ void draw_player(Player *player, SDL_Instance *instance)
 	 player->rect.y + (player->deltaY * 20));
 }
 
+/**
+ * draw_map - draws minimap
+ * @map: map struct
+ * @instance: sdl instance
+ */
 void draw_map(Map *map, SDL_Instance *instance)
 {
 	int x, y;
-	
+
 	SDL_SetRenderDrawColor(instance->renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_SetRenderDrawColor(instance->renderer, 0x00, 0x00, 0x00, 0xFF);
 

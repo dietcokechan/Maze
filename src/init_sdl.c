@@ -37,6 +37,11 @@ int init_instance(SDL_Instance *instance)
 	return (0);
 }
 
+/**
+ * poll_events - sdl events
+ * @player: player struct
+ * Return: 0 or 1
+ */
 int poll_events(Player *player)
 {
 	SDL_Event e;

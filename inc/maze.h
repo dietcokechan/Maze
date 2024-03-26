@@ -43,12 +43,6 @@ typedef struct Map
 	int map[];
 } Map;
 
-typedef struct Line
-{
-	SDL_Point p1;
-	SDL_Point p2;
-} Line;
-
 /*functions start*/
 int init_instance(SDL_Instance *);
 int poll_events(Player *);
