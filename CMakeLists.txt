@@ -11,5 +11,6 @@ include_directories(${SDL2_INCLUDE_DIRS})
 add_executable(Maze src/main.c
                     src/init_sdl.c
                     src/display.c
+                    src/helpers.c
                 )
 target_link_libraries(Maze ${SDL2_LIBRARIES})

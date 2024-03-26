@@ -41,6 +41,9 @@ int poll_events(Player *player)
 {
 	SDL_Event e;
 
+	player->deltaX = cos(RAD(player->angle));
+	player->deltaY = -sin(RAD(player->angle));
+
 	while (SDL_PollEvent(&e))
 	{
 		if (e.type == SDL_KEYDOWN)
@@ -48,29 +51,33 @@ int poll_events(Player *player)
 			switch (e.key.keysym.sym)
 			{
 			case SDLK_w:
-				player->rect.y -= 4;
+				player->rect.x += (player->deltaX * SPEED);
+				player->rect.y += (player->deltaY * SPEED);
 				break;
 			case SDLK_s:
-				player->rect.y += 4;
+				player->rect.x -= (player->deltaX * SPEED);
+				player->rect.y -= (player->deltaY * SPEED);
 				break;
 			case SDLK_a:
-				player->rect.x -= 4;
+				player->angle += 5;
+				player->angle = fix_angle(player->angle);
+				player->deltaX = cos(RAD(player->angle));
+				player->deltaY = -sin(RAD(player->angle));
 				break;
 			case SDLK_d:
-				player->rect.x += 4;
+				player->angle -= 5;
+				player->angle = fix_angle(player->angle);
+				player->deltaX = cos(RAD(player->angle));
+				player->deltaY = -sin(RAD(player->angle));
 				break;
 			case SDLK_ESCAPE:
 				return (1);
-				break;
-
 			default:
 				break;
 			}
 		}
 		else if (e.type == SDL_QUIT)
-		{
 			return (1);
-		}
 	}
 	return (0);
 }

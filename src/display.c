@@ -3,13 +3,18 @@
 void draw_player(Player *player, SDL_Instance *instance)
 {
 	SDL_SetRenderDrawColor(instance->renderer, 0xFF, 0xFF, 0x00, 0xFF);
-	SDL_RenderDrawRect(instance->renderer, &player->rect);
 	SDL_RenderFillRect(instance->renderer, &player->rect);
+
+	SDL_RenderDrawPoint(instance->renderer, player->rect.x, player->rect.y);
+	SDL_RenderDrawLine(instance->renderer, player->rect.x + 6, player->rect.y,
+	 player->rect.x + (player->deltaX * 20),
+	 player->rect.y + (player->deltaY * 20));
 }
 
 void draw_map(Map *map, SDL_Instance *instance)
 {
 	int x, y;
+	
 	SDL_SetRenderDrawColor(instance->renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_SetRenderDrawColor(instance->renderer, 0x00, 0x00, 0x00, 0xFF);
 
