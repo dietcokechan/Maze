@@ -11,22 +11,27 @@ int main(int argc, char **argv)
 	SDL_Instance instance = {NULL, NULL};
 	Player player = {
 		{
-			SCREEN_WIDTH / 4,
-			SCREEN_HEIGHT / 2,
+			150,
+			400,
 			12, 12
 		},
 		90.0, 0.0, 0.0
 	};
-	Map map = {8, 8, 64, {
-		1, 1, 1, 1, 1, 1, 1, 1, 
-		1, 0, 0, 0, 0, 0, 0, 1, 
-		1, 0, 1, 1, 0, 0, 0, 1, 
-		1, 0, 0, 0, 0, 0, 0, 1, 
-		1, 0, 0, 0, 0, 0, 0, 1, 
-		1, 0, 0, 0, 0, 1, 0, 1, 
-		1, 0, 0, 0, 0, 0, 0, 1, 
-		1, 1, 1, 1, 1, 1, 1, 1
-	}};
+	Map map = {8, 8, 64,
+	 	{
+			1, 1, 1, 1, 1, 1, 1, 1, 
+			1, 0, 1, 0, 0, 0, 0, 1, 
+			1, 0, 1, 1, 0, 0, 0, 1, 
+			1, 0, 0, 0, 0, 0, 0, 1, 
+			1, 0, 0, 0, 0, 0, 0, 1, 
+			1, 0, 1, 0, 0, 1, 1, 1, 
+			1, 0, 0, 0, 0, 0, 0, 1, 
+			1, 1, 1, 1, 1, 1, 1, 1
+		}
+	};
+
+	player.deltaX = cos(RAD(player.angle));
+	player.deltaY = -sin(RAD(player.angle));
 
 	if (init_instance(&instance) != 0)
 		return (1);
@@ -37,8 +42,9 @@ int main(int argc, char **argv)
 		SDL_RenderClear(instance.renderer);
 		poll_events(&player);
 		draw_map(&map, &instance);
+		draw_rays(&instance, &player, &map);
 		draw_player(&player, &instance);
-		SDL_SetRenderDrawColor(instance.renderer, 0x80, 0x80, 0x80, 0x80);
+		SDL_SetRenderDrawColor(instance.renderer, 0x90, 0x90, 0x90, 0xFF);
 		SDL_RenderPresent(instance.renderer);
 	}
 	SDL_DestroyRenderer(instance.renderer);

@@ -46,9 +46,6 @@ int poll_events(Player *player)
 {
 	SDL_Event e;
 
-	player->deltaX = cos(RAD(player->angle));
-	player->deltaY = -sin(RAD(player->angle));
-
 	while (SDL_PollEvent(&e))
 	{
 		if (e.type == SDL_KEYDOWN)
