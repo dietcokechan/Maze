@@ -18,10 +18,6 @@
 #define FALSE 0
 #define FOV 60
 #define SPEED 5
-#define PI 3.1415926535
-#define P2 PI/2
-#define P3 3*PI/2
-#define RAD(x) (x * PI / 180.0)
 
 /*structs*/
 typedef struct SDL_Instance
@@ -48,13 +44,14 @@ typedef struct Map
 
 /*functions start*/
 int init_instance(SDL_Instance *);
-int poll_events(Player *);
+int poll_events(SDL_Instance *, Player *);
 
 void draw_player(Player *, SDL_Instance *);
 void draw_map(Map *, SDL_Instance *);
 void draw_rays(SDL_Instance *, Player *, Map *);
 
 int fix_angle(int);
+float deg_rad(float);
 /*functions end*/
 
 #endif /* MAZE_H */

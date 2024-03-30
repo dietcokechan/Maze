@@ -48,41 +48,48 @@ void draw_map(Map *map, SDL_Instance *instance)
  * @player: player struct
  * @map: map struct
  */
-void draw_rays(SDL_Instance *instance,Player *player, Map *map)
+void draw_rays(SDL_Instance *instance, Player *player, Map *map)
 {
-	int ray, depth, pX, pY, wallX, wallY, mapPos;
+	SDL_SetRenderDrawColor(instance->renderer, 0x00, 0x40, 0x80, 0xFF);
+	SDL_Rect rect1 = {512, 0, SCREEN_WIDTH, SCREEN_HEIGHT / 2};
+	SDL_RenderFillRect(instance->renderer, &rect1);
+
+	SDL_SetRenderDrawColor(instance->renderer, 0x00, 0x10, 0x80, 0xFF);
+	SDL_Rect rect2 = {512, 160, SCREEN_WIDTH, SCREEN_HEIGHT};
+	SDL_RenderFillRect(instance->renderer, &rect2);
+
+	int ray, depth, wallX, wallY, mapPos, side;
 	float rAng, rX, rY, vX, vY, offsetX, offsetY, distV, distH;
 
 	rAng = fix_angle(player->angle + 30);
-	pX = player->rect.x;
-	pY = player->rect.y;
 
 	for (ray = 0; ray < FOV; ray++)
 	{
 		/*checks vertical lines*/
 		depth = 0;
-		distV = 100000;
-		float angTan = tan(RAD(rAng));
+		side = 0;
+		distV = 1000000;
+		float angTan = tan(deg_rad(rAng));
 
 		/*check if looking left or right*/
-		if (cos(RAD(rAng)) > 0.001)
+		if (cos(deg_rad(rAng)) > 0.001)
 		{
-			rX = (((int)pY >> 6) << 6) + 64;
-			rY = (pX - rX) * angTan + pY;
+			rX = (((int)player->rect.x >> 6) << 6) + 64;
+			rY = (player->rect.x - rX) * angTan + player->rect.y;
 			offsetX = 64;
 			offsetY = -offsetX * angTan;
 		}
-		else if (cos(RAD(rAng)) < -0.001)
+		else if (cos(deg_rad(rAng)) < -0.001)
 		{
-			rX = (((int)pY >> 6) << 6) - 0.0001;
-			rY = (pX - rX) * angTan + pY;
+			rX = (((int)player->rect.x >> 6) << 6) - 0.0001;
+			rY = (player->rect.x - rX) * angTan + player->rect.y;
 			offsetX = -64;
 			offsetY = -offsetX * angTan;
 		}
 		else
 		{
-			rX = pX;
-			rY = pY;
+			rX = player->rect.x;
+			rY = player->rect.y;
 			depth = 8;
 		}
 
@@ -94,8 +101,8 @@ void draw_rays(SDL_Instance *instance,Player *player, Map *map)
 			if (mapPos > 0 && mapPos < map->size && map->map[mapPos] == 1)
 			{
 				depth = 8;
-				distV = cos(RAD(rAng)) * (rX - pX)
-						 - sin(RAD(rAng)) * (rY, pY);
+				distV = cos(deg_rad(rAng)) * (rX - player->rect.x)
+						 - sin(deg_rad(rAng)) * (rY, player->rect.y);
 			}
 			else
 			{
@@ -109,28 +116,28 @@ void draw_rays(SDL_Instance *instance,Player *player, Map *map)
 
 		/*checking horizontal lines*/
 		depth = 0;
-		distH = 100000;
+		distH = 1000000;
 		angTan = 1.0 / angTan;
 
 		/*check if looking up or down*/
-		if(sin(RAD(rAng)) > 0.001)
+		if(sin(deg_rad(rAng)) > 0.001)
 		{
-			rY = (((int)pY >> 6) << 6) - 0.0001;
-			rX = (pY - rY) * angTan + pX;
+			rY = (((int)player->rect.y >> 6) << 6) - 0.0001;
+			rX = (player->rect.y - rY) * angTan + player->rect.x;
 			offsetY = -64;
 			offsetX = -offsetY * angTan;
 		}
-		else if (sin(RAD(rAng)) < -0.001)
+		else if (sin(deg_rad(rAng)) < -0.001)
 		{
-			rY = (((int)pY >> 6) << 6) + 64;
-			rX = (pY - rY) * angTan + pX;
+			rY = (((int)player->rect.y >> 6) << 6) + 64;
+			rX = (player->rect.y - rY) * angTan + player->rect.x;
 			offsetY = 64;
 			offsetX = -offsetY * angTan;
 		}
 		else
 		{
-			rX = pX;
-			rY = pY;
+			rX = player->rect.x;
+			rY = player->rect.y;
 			depth = 8;
 		}
 
@@ -142,8 +149,8 @@ void draw_rays(SDL_Instance *instance,Player *player, Map *map)
 			if (mapPos > 0 && mapPos < map->size && map->map[mapPos] == 1)
 			{
 				depth = 8;
-				distH = cos(RAD(rAng)) * (rX - pX)
-						 - sin(RAD(rAng)) * (rY, pY);
+				distH = cos(deg_rad(rAng)) * (rX - player->rect.x)
+						 - sin(deg_rad(rAng)) * (rY, player->rect.y);
 			}
 			else
 			{
@@ -153,28 +160,34 @@ void draw_rays(SDL_Instance *instance,Player *player, Map *map)
 			}
 		}
 
-		SDL_SetRenderDrawColor(instance->renderer, 0x00, 0x00, 0x80, 0xFF);
+		SDL_SetRenderDrawColor(instance->renderer, 0x00, 0x80, 0x00, 0xFF);
 
 		if (distV < distH)
 		{
 			rX = vX;
 			rY = vY;
 			distH = distV;
-			SDL_SetRenderDrawColor(instance->renderer, 0x00, 0x00, 0xFF, 0xFF);
 		}
-		SDL_RenderDrawLine(instance->renderer, pX, pY, rX, rY);
+		SDL_SetRenderDrawColor(instance->renderer, 0x00, 0x60, 0x00, 0xFF);
+		SDL_RenderDrawLine(instance->renderer, player->rect.x + 6, player->rect.y + 6, rX, rY);
 
 		int cAng = fix_angle(player->angle - rAng);
-		distH = distH * cos(RAD(cAng));
-		int line_height = (map->size * 320) / (distH);
-		if (line_height > 320)
-			line_height = 320;
-		int offsetL = 160 - (line_height >> 1);
-		SDL_RenderDrawLine(instance->renderer, ray * 8 + 530,
-						   offsetL,
-						   ray * 8 + 530,
-						   offsetL + line_height);
+		distH = distH * cos(deg_rad(cAng));
 
-		rAng = fix_angle(rAng - 1);
+		int line_height = (int)(SCREEN_HEIGHT / distH);
+
+		int lineOff = 160 - (line_height >> 1);
+
+		// int drawStart = -line_height / 2 + SCREEN_HEIGHT / 2;
+		// if (drawStart < 0)
+		// 	drawStart = 0;
+		// int drawEnd = line_height / 2 + SCREEN_HEIGHT / 2;
+		// if (drawEnd >= SCREEN_HEIGHT)
+		// 	drawEnd = SCREEN_HEIGHT - 1;
+
+		SDL_RenderDrawLine(instance->renderer, ray + 530, lineOff,
+							ray + 530, lineOff + line_height);
+
+		rAng = fix_angle(rAng - 0.5);
 	}
 }

@@ -42,7 +42,7 @@ int init_instance(SDL_Instance *instance)
  * @player: player struct
  * Return: 0 or 1
  */
-int poll_events(Player *player)
+int poll_events(SDL_Instance *instance, Player *player)
 {
 	SDL_Event e;
 
@@ -63,20 +63,21 @@ int poll_events(Player *player)
 			case SDLK_a:
 				player->angle += 5;
 				player->angle = fix_angle(player->angle);
-				player->deltaX = cos(RAD(player->angle));
-				player->deltaY = -sin(RAD(player->angle));
+				player->deltaX = cos(deg_rad(player->angle));
+				player->deltaY = -sin(deg_rad(player->angle));
 				break;
 			case SDLK_d:
 				player->angle -= 5;
 				player->angle = fix_angle(player->angle);
-				player->deltaX = cos(RAD(player->angle));
-				player->deltaY = -sin(RAD(player->angle));
+				player->deltaX = cos(deg_rad(player->angle));
+				player->deltaY = -sin(deg_rad(player->angle));
 				break;
 			case SDLK_ESCAPE:
 				return (1);
 			default:
 				break;
 			}
+			SDL_RenderPresent(&instance->renderer);
 		}
 		else if (e.type == SDL_QUIT)
 			return (1);

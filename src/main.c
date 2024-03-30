@@ -30,17 +30,17 @@ int main(int argc, char **argv)
 		}
 	};
 
-	player.deltaX = cos(RAD(player.angle));
-	player.deltaY = -sin(RAD(player.angle));
+	player.deltaX = cos(deg_rad(player.angle));
+	player.deltaY = -sin(deg_rad(player.angle));
 
 	if (init_instance(&instance) != 0)
 		return (1);
 
-	while (poll_events(&player) != 1)
+	while (poll_events(&instance, &player) != 1)
 	{
 		SDL_GetRenderDrawColor(instance.renderer, 0, 0, 0, 0);
 		SDL_RenderClear(instance.renderer);
-		poll_events(&player);
+		poll_events(&instance, &player);
 		draw_map(&map, &instance);
 		draw_rays(&instance, &player, &map);
 		draw_player(&player, &instance);
