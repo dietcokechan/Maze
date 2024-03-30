@@ -34,6 +34,14 @@ int init_instance(SDL_Instance *instance)
 		SDL_Quit();
 		return (1);
 	}
+
+	// Set the logical size of the rendering area
+	SDL_RenderSetLogicalSize(instance->renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	// Set the viewport to cover the entire window
+	SDL_Rect viewport = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+	SDL_RenderSetViewport(instance->renderer, &viewport);
+
 	return (0);
 }
 
@@ -42,7 +50,7 @@ int init_instance(SDL_Instance *instance)
  * @player: player struct
  * Return: 0 or 1
  */
-int poll_events(SDL_Instance *instance, Player *player)
+int poll_events(SDL_Instance *instance, Player *player, Map *map)
 {
 	SDL_Event e;
 
@@ -53,31 +61,37 @@ int poll_events(SDL_Instance *instance, Player *player)
 			switch (e.key.keysym.sym)
 			{
 			case SDLK_w:
-				player->rect.x += (player->deltaX * SPEED);
-				player->rect.y += (player->deltaY * SPEED);
+				// if (map->map[player->rect.x] == 0)
+					player->rect.x += (player->deltaX * 6);
+				// if (map->map[player->rect.y] == 0)
+					player->rect.y += (player->deltaY * 6);
 				break;
 			case SDLK_s:
-				player->rect.x -= (player->deltaX * SPEED);
-				player->rect.y -= (player->deltaY * SPEED);
+				// if (map->map[player->rect.x] == 0)
+					player->rect.x -= (player->deltaX * 6);
+				// if (map->map[player->rect.y] == 0)
+					player->rect.y -= (player->deltaY * 6);
 				break;
 			case SDLK_a:
-				player->angle += 5;
-				player->angle = fix_angle(player->angle);
-				player->deltaX = cos(deg_rad(player->angle));
-				player->deltaY = -sin(deg_rad(player->angle));
+				player->angle += 2;
+				// player->angle = fix_angle(player->angle);
+				player->deltaX = cos(degToRad(player->angle));
+				player->deltaY = -sin(degToRad(player->angle));
 				break;
 			case SDLK_d:
-				player->angle -= 5;
-				player->angle = fix_angle(player->angle);
-				player->deltaX = cos(deg_rad(player->angle));
-				player->deltaY = -sin(deg_rad(player->angle));
+				player->angle -= 2;
+				// player->angle = fix_angle(player->angle);
+				player->deltaX = cos(degToRad(player->angle));
+				player->deltaY = -sin(degToRad(player->angle));
 				break;
 			case SDLK_ESCAPE:
 				return (1);
+			case SDLK_m:
+				instance->minimap = !instance->minimap;
 			default:
 				break;
 			}
-			SDL_RenderPresent(&instance->renderer);
+			SDL_RenderPresent(instance->renderer);
 		}
 		else if (e.type == SDL_QUIT)
 			return (1);

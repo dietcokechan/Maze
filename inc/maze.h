@@ -14,16 +14,17 @@
 #define TITLE "SDL"
 #define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 510
-#define TRUE 1
-#define FALSE 0
 #define FOV 60
-#define SPEED 5
+#define MINIMAP_W SCREEN_WIDTH / 2
+#define MINIMAP_H SCREEN_HEIGHT / 2
 
 /*structs*/
 typedef struct SDL_Instance
 {
 	SDL_Window *window;
 	SDL_Renderer *renderer;
+	int minimap;
+	int hit;
 } SDL_Instance;
 
 typedef struct Player
@@ -44,14 +45,14 @@ typedef struct Map
 
 /*functions start*/
 int init_instance(SDL_Instance *);
-int poll_events(SDL_Instance *, Player *);
+int poll_events(SDL_Instance *, Player *, Map *);
 
 void draw_player(Player *, SDL_Instance *);
 void draw_map(Map *, SDL_Instance *);
 void draw_rays(SDL_Instance *, Player *, Map *);
 
 int fix_angle(int);
-float deg_rad(float);
+float degToRad(float);
 /*functions end*/
 
 #endif /* MAZE_H */

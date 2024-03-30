@@ -7,14 +7,14 @@
  */
 int fix_angle(int x)
 {
-	if (x >= 359)
+	if (x > 359)
 		x -= 360;
-	if (x <= 0)
+	if (x < 0)
 		x += 360;
 	return (x);
 }
 
-float deg_rad(float x)
+float degToRad(float x)
 {
 	return x * (M_PI / 180.0);
 }
