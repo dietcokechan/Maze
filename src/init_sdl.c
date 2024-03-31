@@ -35,11 +35,12 @@ int init_instance(SDL_Instance *instance)
 		return (1);
 	}
 
-	// Set the logical size of the rendering area
+	/* Set the logical size of the rendering area */
 	SDL_RenderSetLogicalSize(instance->renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	// Set the viewport to cover the entire window
+	/* Set the viewport to cover the entire window */
 	SDL_Rect viewport = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+
 	SDL_RenderSetViewport(instance->renderer, &viewport);
 
 	return (0);
@@ -47,7 +48,9 @@ int init_instance(SDL_Instance *instance)
 
 /**
  * poll_events - sdl events
+ * @instance: sdl instance
  * @player: player struct
+ * @map: map instance
  * Return: 0 or 1
  */
 int poll_events(SDL_Instance *instance, Player *player, Map *map)
@@ -61,31 +64,25 @@ int poll_events(SDL_Instance *instance, Player *player, Map *map)
 			switch (e.key.keysym.sym)
 			{
 			case SDLK_w:
-				// if (map->map[player->rect.x] == 0)
 					player->rect.x += (player->deltaX * 6);
-				// if (map->map[player->rect.y] == 0)
 					player->rect.y += (player->deltaY * 6);
 				break;
 			case SDLK_s:
-				// if (map->map[player->rect.x] == 0)
 					player->rect.x -= (player->deltaX * 6);
-				// if (map->map[player->rect.y] == 0)
 					player->rect.y -= (player->deltaY * 6);
 				break;
 			case SDLK_a:
 				player->angle += 2;
-				// player->angle = fix_angle(player->angle);
+				player->angle = fix_angle(player->angle);
 				player->deltaX = cos(degToRad(player->angle));
 				player->deltaY = -sin(degToRad(player->angle));
 				break;
 			case SDLK_d:
 				player->angle -= 2;
-				// player->angle = fix_angle(player->angle);
+				player->angle = fix_angle(player->angle);
 				player->deltaX = cos(degToRad(player->angle));
 				player->deltaY = -sin(degToRad(player->angle));
 				break;
-			case SDLK_ESCAPE:
-				return (1);
 			case SDLK_m:
 				instance->minimap = !instance->minimap;
 			default:
@@ -97,4 +94,21 @@ int poll_events(SDL_Instance *instance, Player *player, Map *map)
 			return (1);
 	}
 	return (0);
+}
+
+/**
+ * close_sdl - close sdl safely
+ * @instance: sdl instance
+ */
+void close_sdl(SDL_Instance *instance)
+{
+	if (instance->renderer)
+		SDL_DestroyRenderer(instance->renderer);
+	if (instance->window)
+		SDL_DestroyWindow(instance->window);
+
+	instance->window = NULL;
+	instance->renderer = NULL;
+
+	SDL_Quit();
 }

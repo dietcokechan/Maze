@@ -14,7 +14,12 @@ int fix_angle(int x)
 	return (x);
 }
 
+/**
+ * degToRad - degree to radian
+ * @x: degree
+ * Return: radian
+ */
 float degToRad(float x)
 {
-	return x * (M_PI / 180.0);
+	return (x * (M_PI / 180.0));
 }

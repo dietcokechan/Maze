@@ -12,5 +12,7 @@ add_executable(Maze src/main.c
                     src/init_sdl.c
                     src/display.c
                     src/helpers.c
+                    src/raycast.c
+                    src/file_handling.c
                 )
 target_link_libraries(Maze ${SDL2_LIBRARIES})
