@@ -9,11 +9,11 @@ void draw_player(Player *player, SDL_Instance *instance)
 {
 	SDL_SetRenderDrawColor(instance->renderer, 0x80, 0x80, 0X20, 0xFF);
 	SDL_RenderFillRect(instance->renderer, &player->rect);
-	SDL_RenderDrawPoint(instance->renderer, player->rect.x, player->rect.y);
-	SDL_RenderDrawLine(instance->renderer, player->rect.x + 6,
-	 player->rect.y + 6,
-	 player->rect.x + player->deltaX * 20,
-	 player->rect.y + player->deltaY * 20);
+	// SDL_RenderDrawPoint(instance->renderer, player->rect.x, player->rect.y);
+	// SDL_RenderDrawLine(instance->renderer, player->rect.x + 5,
+	//  player->rect.y + 5,
+	//  player->rect.x + player->deltaX * 20,
+	//  player->rect.y + player->deltaY * 20);
 }
 
 /**
@@ -36,8 +36,8 @@ void draw_map(Map *map, SDL_Instance *instance)
 			SDL_Rect rect = {
 				x * map->size + 1,
 				y * map->size + 1,
-				map->size,
-				map->size
+				map->x * map->x - 2,
+				map->y * map->y - 2
 			};
 			SDL_RenderFillRect(instance->renderer, &rect);
 		}
@@ -100,7 +100,7 @@ void draw_rays(SDL_Instance *instance, Player *player, Map *map)
 		{
 			SDL_SetRenderDrawColor(instance->renderer, 0, 255, 0, 255);
 			SDL_RenderDrawLine(instance->renderer,
-							   player->rect.x + 6, player->rect.y + 6, rX, rY);
+							   player->rect.x + 5, player->rect.y + 5, rX, rY);
 		}
 		
 		rA = fix_angle(rA - 1);

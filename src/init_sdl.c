@@ -64,21 +64,21 @@ int poll_events(SDL_Instance *instance, Player *player, Map *map)
 			switch (e.key.keysym.sym)
 			{
 			case SDLK_w:
-					player->rect.x += (player->deltaX * 5);
-					player->rect.y += (player->deltaY * 5);
+				player->rect.x += (player->deltaX * 5);
+				player->rect.y += (player->deltaY * 5);
 				break;
 			case SDLK_s:
-					player->rect.x -= (player->deltaX * 5);
-					player->rect.y -= (player->deltaY * 5);
+				player->rect.x -= (player->deltaX * 5);
+				player->rect.y -= (player->deltaY * 5);
 				break;
 			case SDLK_a:
-				player->angle += 2;
+				player->angle += 5;
 				player->angle = fix_angle(player->angle);
 				player->deltaX = cos(degToRad(player->angle));
 				player->deltaY = -sin(degToRad(player->angle));
 				break;
 			case SDLK_d:
-				player->angle -= 2;
+				player->angle -= 5;
 				player->angle = fix_angle(player->angle);
 				player->deltaX = cos(degToRad(player->angle));
 				player->deltaY = -sin(degToRad(player->angle));
@@ -90,7 +90,7 @@ int poll_events(SDL_Instance *instance, Player *player, Map *map)
 			}
 			SDL_RenderPresent(instance->renderer);
 		}
-		else if (e.type == SDL_QUIT)
+				else if (e.type == SDL_QUIT)
 			return (1);
 	}
 	return (0);

@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 {
 	char *map_path;
 	SDL_Instance instance = {NULL, NULL, 0};
-	Player player = {{200, 400, 12, 12}, 90.0, 0.0, 0.0};
+	Player player = {{200, 400, 10, 10}, 90.0, 0.0, 0.0};
 	Map map = {0, 0, 0, NULL};
 
 	player.deltaX = cos(degToRad(player.angle));
@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 	// 	exit(EXIT_FAILURE);
 	// }
 	// map_path = concat("../resources/maps", argv[1]);
-	map_path = "../../resources/maps/def";
+	map_path = "resources/maps/base";
 	map = handle_file(map_path);
 
 	if (init_instance(&instance) != 0)
@@ -38,8 +38,8 @@ int main(int argc, char **argv)
 		if (instance.minimap)
 		{
 			draw_map(&map, &instance);
-			draw_player(&player, &instance);
 			draw_rays(&instance, &player, &map);
+			draw_player(&player, &instance);
 		}
 		SDL_SetRenderDrawColor(instance.renderer, 0x90, 0x90, 0x90, 0xFF);
 		SDL_SetRenderDrawBlendMode(instance.renderer, SDL_BLENDMODE_BLEND);

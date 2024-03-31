@@ -22,7 +22,7 @@ FILE *open_file(char *filename)
 	fp = fopen(filename, "r");
 	if (!fp)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", filename);
+		perror(stderr, "Error: Can't open file %s\n", filename);
 		exit(EXIT_FAILURE);
 	}
 
@@ -76,7 +76,7 @@ Map handle_file(char *filename)
 
 	fp = open_file(filename);
 	Map map = read_file(fp);
-	
+
 	close_file(fp);
 
 	return (map);
