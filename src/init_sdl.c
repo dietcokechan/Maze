@@ -64,12 +64,12 @@ int poll_events(SDL_Instance *instance, Player *player, Map *map)
 			switch (e.key.keysym.sym)
 			{
 			case SDLK_w:
-					player->rect.x += (player->deltaX * 6);
-					player->rect.y += (player->deltaY * 6);
+					player->rect.x += (player->deltaX * 5);
+					player->rect.y += (player->deltaY * 5);
 				break;
 			case SDLK_s:
-					player->rect.x -= (player->deltaX * 6);
-					player->rect.y -= (player->deltaY * 6);
+					player->rect.x -= (player->deltaX * 5);
+					player->rect.y -= (player->deltaY * 5);
 				break;
 			case SDLK_a:
 				player->angle += 2;
