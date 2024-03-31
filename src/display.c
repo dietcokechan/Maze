@@ -29,7 +29,7 @@ void draw_map(Map *map, SDL_Instance *instance)
 	{
 		for (x = 0; x < map->x; x++)
 		{
-			if (map->map[y * map->x + x] == 1)
+			if (map->map[y * map->x + x] >= 1)
 				SDL_SetRenderDrawColor(instance->renderer, 0xFF, 0xFF, 0xFF, 0x90);
 			else
 				SDL_SetRenderDrawColor(instance->renderer, 0x00, 0x00, 0x00, 0x90);
@@ -59,6 +59,20 @@ void draw_background(SDL_Instance *instance)
 	SDL_Rect rect2 = {0, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT};
 
 	SDL_RenderFillRect(instance->renderer, &rect2);
+
+	for (int i = 0; i < 16; i++)
+	{
+		SDL_Point points[5] = {
+			{i, i},
+			{SCREEN_WIDTH - i, i},
+			{SCREEN_WIDTH - i, SCREEN_HEIGHT - i},
+			{i, SCREEN_HEIGHT - i},
+			{i, i}
+		};
+
+		SDL_SetRenderDrawColor(instance->renderer, 155, 155, 155, 255);
+		SDL_RenderDrawLines(instance->renderer, points, 5);
+	}
 }
 
 /**
@@ -120,6 +134,7 @@ void draw_rays(SDL_Instance *instance, Player *player, Map *map)
 void draw_3D_walls(SDL_Instance *instance, Player *player,
 				 float rA, Map *map, float distH, int r)
 {
+	int i, j;
 	int ca = fix_angle(player->angle - rA);
 
 	distH = distH * cos(degToRad(ca)); /* fix fisheye */
@@ -138,11 +153,10 @@ void draw_3D_walls(SDL_Instance *instance, Player *player,
 	if (drawEnd >= SCREEN_HEIGHT)
 		drawEnd = SCREEN_HEIGHT - 1;
 
-
 	/* draw 3D scene */
-	for (int i = 0; i < 8; i++)
+	for (j = 0; j < 8; j++)
 	{
 		SDL_RenderDrawLine(instance->renderer,
-		 r * 8 - i, drawStart, r * 8 - i, drawEnd);
+		r * 8 + j + 16, drawStart, r * 8 + j + 16, drawEnd);
 	}
 }
