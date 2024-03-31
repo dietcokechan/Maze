@@ -22,7 +22,6 @@ int main(int argc, char **argv)
 	// 	exit(EXIT_FAILURE);
 	// }
 	// map_path = concat("../resources/maps", argv[1]);
-
 	map_path = "../../resources/maps/def";
 	map = handle_file(map_path);
 
@@ -33,16 +32,15 @@ int main(int argc, char **argv)
 	{
 		SDL_GetRenderDrawColor(instance.renderer, 0, 0, 0, 0);
 		SDL_RenderClear(instance.renderer);
-
 		poll_events(&instance, &player, &map);
 		draw_background(&instance);
-		draw_rays(&instance, &player, &map);
+		raycast(&player, &instance, &map);
 		if (instance.minimap)
 		{
 			draw_map(&map, &instance);
 			draw_player(&player, &instance);
+			draw_rays(&instance, &player, &map);
 		}
-
 		SDL_SetRenderDrawColor(instance.renderer, 0x90, 0x90, 0x90, 0xFF);
 		SDL_SetRenderDrawBlendMode(instance.renderer, SDL_BLENDMODE_BLEND);
 		SDL_RenderPresent(instance.renderer);

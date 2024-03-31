@@ -34,9 +34,10 @@ void draw_background(SDL_Instance *instance);
 void draw_rays(SDL_Instance *, Player *, Map *);
 void draw_3D_walls(SDL_Instance *instance, Player *player, float rA,
 	 Map *map, float distH, int r);
+void raycast(Player *player, SDL_Instance *instance, Map *map);
 
-/*helpers.c*/
-int fix_angle(int);
+	/*helpers.c*/
+	int fix_angle(int);
 float degToRad(float);
 
 /*file_handling.c*/

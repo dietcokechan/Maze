@@ -7,7 +7,7 @@
  */
 void draw_player(Player *player, SDL_Instance *instance)
 {
-	SDL_SetRenderDrawColor(instance->renderer, 0x80, 0x80, 0X20, 0x80);
+	SDL_SetRenderDrawColor(instance->renderer, 0x80, 0x80, 0X20, 0xFF);
 	SDL_RenderFillRect(instance->renderer, &player->rect);
 	SDL_RenderDrawPoint(instance->renderer, player->rect.x, player->rect.y);
 	SDL_RenderDrawLine(instance->renderer, player->rect.x + 6,
@@ -30,9 +30,9 @@ void draw_map(Map *map, SDL_Instance *instance)
 		for (x = 0; x < map->x; x++)
 		{
 			if (map->map[y * map->x + x] == 1)
-				SDL_SetRenderDrawColor(instance->renderer, 0xFF, 0xFF, 0xFF, 0x80);
+				SDL_SetRenderDrawColor(instance->renderer, 0xFF, 0xFF, 0xFF, 0x90);
 			else
-				SDL_SetRenderDrawColor(instance->renderer, 0x00, 0x00, 0x00, 0x80);
+				SDL_SetRenderDrawColor(instance->renderer, 0x00, 0x00, 0x00, 0x90);
 			SDL_Rect rect = {
 				x * map->size + 1,
 				y * map->size + 1,
@@ -87,23 +87,22 @@ void draw_rays(SDL_Instance *instance, Player *player, Map *map)
 			rX = vX;
 			rY = vY;
 			distH = distV;
-			SDL_SetRenderDrawColor(instance->renderer, 0x80, 0x60, 0x80, 0xFF);
 		} /* horizontal hit first */
 		else
 		{
 			rX = hX;
 			rY = hY;
 			distH = distH;
-			SDL_SetRenderDrawColor(instance->renderer, 0x60, 0x40, 0x60, 0xFF);
 		}
 
 		/* draw 2D ray */
 		if (instance->minimap)
+		{
+			SDL_SetRenderDrawColor(instance->renderer, 0, 255, 0, 255);
 			SDL_RenderDrawLine(instance->renderer,
-			 player->rect.x + 6, player->rect.y + 6, rX, rY);
-
-		draw_3D_walls(instance, player, rA, map, distH, r);
-
+							   player->rect.x + 6, player->rect.y + 6, rX, rY);
+		}
+		
 		rA = fix_angle(rA - 1);
 	}
 }
@@ -138,6 +137,7 @@ void draw_3D_walls(SDL_Instance *instance, Player *player,
 		drawStart = 0;
 	if (drawEnd >= SCREEN_HEIGHT)
 		drawEnd = SCREEN_HEIGHT - 1;
+
 
 	/* draw 3D scene */
 	for (int i = 0; i < 8; i++)

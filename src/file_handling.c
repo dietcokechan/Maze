@@ -29,6 +29,11 @@ FILE *open_file(char *filename)
 	return (fp);
 }
 
+/**
+ * read_file - reads content of file and parses it
+ * @fp: file
+ * Return: map struct
+ */
 Map read_file(FILE *fp)
 {
 	Map map = {0, 0, 0, NULL};
@@ -71,6 +76,7 @@ Map handle_file(char *filename)
 
 	fp = open_file(filename);
 	Map map = read_file(fp);
+	
 	close_file(fp);
 
 	return (map);

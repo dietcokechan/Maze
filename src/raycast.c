@@ -124,3 +124,45 @@ void calculate_horizontal_rays(Player *player, Map *map, float rA,
 	*hX = rX;
 	*hY = rY;
 }
+
+/**
+ * raycast - raycast algorithm
+ * @player: player instance
+ * @instance: sdl instance
+ * @map: map instance
+ */
+void raycast(Player *player, SDL_Instance *instance, Map *map)
+{
+	int r;
+	float rA, rX, rY, vX, vY, hX, hY, distV, distH;
+
+	rA = fix_angle(player->angle + 30);
+
+	for (r = 0; r < FOV; r++)
+	{
+		rX = player->rect.x;
+		rY = player->rect.y;
+
+		calculate_vertical_rays(player, map, rA, instance, &distV, &vX, &vY);
+		calculate_horizontal_rays(player, map, rA, instance, &distH, &hX, &hY);
+
+		if (distV < distH)
+		{
+			rX = vX;
+			rY = vY;
+			distH = distV;
+			SDL_SetRenderDrawColor(instance->renderer, 0x30, 0x20, 0x10, 0xFF);
+		} /* horizontal hit first */
+		else
+		{
+			rX = hX;
+			rY = hY;
+			distH = distH;
+			SDL_SetRenderDrawColor(instance->renderer, 0x40, 0x30, 0x20, 0xFF);
+		}
+
+		draw_3D_walls(instance, player, rA, map, distH, r);
+
+		rA = fix_angle(rA - 1);
+	}
+}

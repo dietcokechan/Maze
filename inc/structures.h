@@ -29,6 +29,8 @@ typedef struct Player
 	float angle;
 	float deltaX;
 	float deltaY;
+	float rayX;
+	float rayY;
 } Player;
 
 /**
