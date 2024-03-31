@@ -36,8 +36,8 @@ void draw_map(Map *map, SDL_Instance *instance)
 			SDL_Rect rect = {
 				x * map->size + 1,
 				y * map->size + 1,
-				map->size - 2,
-				map->size - 2
+				map->size,
+				map->size
 			};
 			SDL_RenderFillRect(instance->renderer, &rect);
 		}
