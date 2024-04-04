@@ -43,6 +43,8 @@ int init_instance(SDL_Instance *instance)
 
 	SDL_RenderSetViewport(instance->renderer, &viewport);
 
+	// load_textures(&instance);
+
 	return (0);
 }
 
@@ -106,9 +108,13 @@ void close_sdl(SDL_Instance *instance)
 		SDL_DestroyRenderer(instance->renderer);
 	if (instance->window)
 		SDL_DestroyWindow(instance->window);
+	// if (instance->wallTex)
+	// 	SDL_DestroyTexture(instance->wallTex);
 
 	instance->window = NULL;
 	instance->renderer = NULL;
-
+	// instance->wallTex = NULL;
+	
+	// IMG_Quit();
 	SDL_Quit();
 }

@@ -22,7 +22,7 @@ FILE *open_file(char *filename)
 	fp = fopen(filename, "r");
 	if (!fp)
 	{
-		perror(stderr, "Error: Can't open file %s\n", filename);
+		printf(stderr, "Error: Can't open file %s\n", filename);
 		exit(EXIT_FAILURE);
 	}
 

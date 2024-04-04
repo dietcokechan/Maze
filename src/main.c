@@ -9,7 +9,7 @@
 int main(int argc, char **argv)
 {
 	char *map_path;
-	SDL_Instance instance = {NULL, NULL, 0};
+	SDL_Instance instance = {NULL, NULL, NULL, 0};
 	Player player = {{200, 400, 10, 10}, 90.0, 0.0, 0.0};
 	Map map = {0, 0, 0, NULL};
 
@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 		SDL_GetRenderDrawColor(instance.renderer, 0, 0, 0, 0);
 		SDL_RenderClear(instance.renderer);
 		poll_events(&instance, &player, &map);
-		draw_background(&instance);
+		draw_decoration(&instance);
 		raycast(&player, &instance, &map);
 		if (instance.minimap)
 		{

@@ -13,6 +13,7 @@ typedef struct SDL_Instance
 {
 	SDL_Window *window;
 	SDL_Renderer *renderer;
+	SDL_Texture* wallTex;
 	int minimap;
 } SDL_Instance;
 

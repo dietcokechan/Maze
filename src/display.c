@@ -45,10 +45,10 @@ void draw_map(Map *map, SDL_Instance *instance)
 }
 
 /**
- * draw_background - draws floor and ceiling
+ * draw_decoration - draws any decoration
  * @instance: sdl instance
  */
-void draw_background(SDL_Instance *instance)
+void draw_decoration(SDL_Instance *instance)
 {
 	SDL_SetRenderDrawColor(instance->renderer, 0x40, 0x60, 0x90, 0xFF);
 	SDL_Rect rect1 = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
@@ -134,15 +134,15 @@ void draw_rays(SDL_Instance *instance, Player *player, Map *map)
 void draw_3D_walls(SDL_Instance *instance, Player *player,
 				 float rA, Map *map, float distH, int r)
 {
-	int i, j;
+	int i;
 	int ca = fix_angle(player->angle - rA);
 
 	distH = distH * cos(degToRad(ca)); /* fix fisheye */
-	int line_height = map->size * SCREEN_HEIGHT / (int)distH;
+	int line_height = (map->size * 320) / (int)distH;
 
-	if (line_height > SCREEN_HEIGHT)
+	if (line_height > 320)
 	{
-		line_height = SCREEN_HEIGHT;
+		line_height = 320;
 	} /* line height and limit */
 
 	int drawStart = -line_height / 2 + SCREEN_HEIGHT / 2;
@@ -151,12 +151,20 @@ void draw_3D_walls(SDL_Instance *instance, Player *player,
 	if (drawStart < 0)
 		drawStart = 0;
 	if (drawEnd >= SCREEN_HEIGHT)
-		drawEnd = SCREEN_HEIGHT - 1;
+		drawEnd = SCREEN_HEIGHT;
 
 	/* draw 3D scene */
-	for (j = 0; j < 8; j++)
+	for (i = 0; i < 8; i++)
 	{
-		SDL_RenderDrawLine(instance->renderer,
-		r * 8 + j + 16, drawStart, r * 8 + j + 16, drawEnd);
+		// SDL_RenderDrawLine(instance->renderer,
+		// 					r * 8 + i + 16, i + drawStart, r * 8 + i + 16, drawEnd);
+
+		SDL_Rect wallRect = {
+			(int)(r * 8 + i + 16),
+			drawStart,
+			1,
+			drawEnd - drawStart
+		};
+		SDL_RenderFillRect(instance->renderer, &wallRect);
 	}
 }

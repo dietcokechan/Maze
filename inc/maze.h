@@ -9,6 +9,7 @@
 
 /*SDL*/
 #include <SDL.h>
+// #include <SDL_image.h>
 
 /*HEADER FILES*/
 #include "structures.h"
@@ -31,10 +32,14 @@ void raycast(Player *, SDL_Instance *, Map *map);
 /*display.c*/
 void draw_player(Player *, SDL_Instance *);
 void draw_map(Map *, SDL_Instance *);
-void draw_background(SDL_Instance *);
+void draw_decoration(SDL_Instance *);
 void draw_rays(SDL_Instance *, Player *, Map *);
 void draw_3D_walls(SDL_Instance *, Player *, float rA,
 	 Map *, float distH, int r);
+
+/*textures.c*/
+// void render_textures(SDL_Instance *instance, SDL_Rect *dest);
+// void load_textures(SDL_Instance *instance);
 
 /*helpers.c*/
 int fix_angle(int);
