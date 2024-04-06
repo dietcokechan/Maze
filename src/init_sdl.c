@@ -74,13 +74,13 @@ int poll_events(SDL_Instance *instance, Player *player, Map *map)
 				player->rect.y -= (player->deltaY * 5);
 				break;
 			case SDLK_a:
-				player->angle += 5;
+				player->angle += 2;
 				player->angle = fix_angle(player->angle);
 				player->deltaX = cos(degToRad(player->angle));
 				player->deltaY = -sin(degToRad(player->angle));
 				break;
 			case SDLK_d:
-				player->angle -= 5;
+				player->angle -= 2;
 				player->angle = fix_angle(player->angle);
 				player->deltaX = cos(degToRad(player->angle));
 				player->deltaY = -sin(degToRad(player->angle));
@@ -90,9 +90,8 @@ int poll_events(SDL_Instance *instance, Player *player, Map *map)
 			default:
 				break;
 			}
-			SDL_RenderPresent(instance->renderer);
 		}
-				else if (e.type == SDL_QUIT)
+		else if (e.type == SDL_QUIT)
 			return (1);
 	}
 	return (0);
@@ -108,13 +107,15 @@ void close_sdl(SDL_Instance *instance)
 		SDL_DestroyRenderer(instance->renderer);
 	if (instance->window)
 		SDL_DestroyWindow(instance->window);
-	// if (instance->wallTex)
-	// 	SDL_DestroyTexture(instance->wallTex);
+	if (instance->wallTex)
+		SDL_DestroyTexture(instance->wallTex);
+	if (instance->surface)
+		SDL_FreeSurface(instance->surface);
 
 	instance->window = NULL;
 	instance->renderer = NULL;
-	// instance->wallTex = NULL;
-	
-	// IMG_Quit();
+	instance->wallTex = NULL;
+	instance->surface = NULL;
+
 	SDL_Quit();
 }

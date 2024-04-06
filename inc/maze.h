@@ -33,13 +33,12 @@ void raycast(Player *, SDL_Instance *, Map *map);
 void draw_player(Player *, SDL_Instance *);
 void draw_map(Map *, SDL_Instance *);
 void draw_decoration(SDL_Instance *);
-void draw_rays(SDL_Instance *, Player *, Map *);
+void draw_rays(SDL_Instance *, Player *, float rX, float rY);
 void draw_3D_walls(SDL_Instance *, Player *, float rA,
 	 Map *, float distH, int r);
 
 /*textures.c*/
-// void render_textures(SDL_Instance *instance, SDL_Rect *dest);
-// void load_textures(SDL_Instance *instance);
+void render_textures(SDL_Instance *instance, SDL_Rect *dest, SDL_Rect *src, int i);
 
 /*helpers.c*/
 int fix_angle(int);

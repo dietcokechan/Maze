@@ -9,20 +9,19 @@
 int main(int argc, char **argv)
 {
 	char *map_path;
-	SDL_Instance instance = {NULL, NULL, NULL, 0};
+	SDL_Instance instance = {NULL, NULL, NULL, NULL, 0, 0};
 	Player player = {{200, 400, 10, 10}, 90.0, 0.0, 0.0};
 	Map map = {0, 0, 0, NULL};
 
 	player.deltaX = cos(degToRad(player.angle));
 	player.deltaY = -sin(degToRad(player.angle));
 
-	// if (argc < 2)
-	// {
-	// 	printf("Usage: %s 'map_path'", argv[0]);
-	// 	exit(EXIT_FAILURE);
-	// }
-	// map_path = concat("../resources/maps", argv[1]);
-	map_path = "resources/maps/base";
+	if (argc < 2)
+	{
+		printf("Usage: %s 'map_path'\n", argv[0]);
+		exit(EXIT_FAILURE);
+	}
+	map_path = concat("resources/maps/", argv[1]);
 	map = handle_file(map_path);
 
 	if (init_instance(&instance) != 0)
@@ -34,13 +33,12 @@ int main(int argc, char **argv)
 		SDL_RenderClear(instance.renderer);
 		poll_events(&instance, &player, &map);
 		draw_decoration(&instance);
-		raycast(&player, &instance, &map);
-		if (instance.minimap)
+		// if (instance.minimap)
 		{
 			draw_map(&map, &instance);
-			draw_rays(&instance, &player, &map);
 			draw_player(&player, &instance);
 		}
+		raycast(&player, &instance, &map);
 		SDL_SetRenderDrawColor(instance.renderer, 0x90, 0x90, 0x90, 0xFF);
 		SDL_SetRenderDrawBlendMode(instance.renderer, SDL_BLENDMODE_BLEND);
 		SDL_RenderPresent(instance.renderer);
