@@ -151,17 +151,21 @@ void raycast(Player *player, SDL_Instance *instance, Map *map)
 			rX = vX;
 			rY = vY;
 			distH = distV;
-			SDL_SetRenderDrawColor(instance->renderer, 0x30, 0x20, 0x10, 0xFF);
+			instance->side = 1;
 		} /* horizontal hit first */
 		else
 		{
 			rX = hX;
 			rY = hY;
 			distH = distH;
-			SDL_SetRenderDrawColor(instance->renderer, 0x40, 0x30, 0x20, 0xFF);
+			instance->side = 0;
 		}
 
 		draw_3D_walls(instance, player, rA, map, distH, r);
+
+		/* draw 2D rays */
+		// if (instance->minimap)
+			draw_rays(instance, player, rX, rY);
 
 		rA = fix_angle(rA - 1);
 	}
