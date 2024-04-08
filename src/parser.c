@@ -28,6 +28,6 @@ void free_map(Map *map)
 	int i;
 
 	for (i = 0; i < map->x; i++)
-		free(map->map[i]);
+		free(&map->map[i]);
 	free(map->map);
 }
