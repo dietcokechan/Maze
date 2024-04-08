@@ -5,7 +5,7 @@
  * @x: angle
  * Return: fixed angle
  */
-int fix_angle(int x)
+int fix_angle(float x)
 {
 	if (x > 359)
 		x -= 360;

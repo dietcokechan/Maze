@@ -27,11 +27,11 @@ int main(int argc, char **argv)
 	if (init_instance(&instance) != 0)
 		return (1);
 
-	while (poll_events(&instance, &player) != 1)
+	while (poll_events(&instance, &player, &map) != 1)
 	{
 		SDL_GetRenderDrawColor(instance.renderer, 0, 0, 0, 0);
 		SDL_RenderClear(instance.renderer);
-		poll_events(&instance, &player);
+		poll_events(&instance, &player, &map);
 		draw_decoration(&instance);
 		if (instance.minimap)
 		{

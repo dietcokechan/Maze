@@ -55,23 +55,47 @@ int init_instance(SDL_Instance *instance)
  * @map: map instance
  * Return: 0 or 1
  */
-int poll_events(SDL_Instance *instance, Player *player)
+int poll_events(SDL_Instance *instance, Player *player, Map *map)
 {
 	SDL_Event e;
 
 	while (SDL_PollEvent(&e))
 	{
+		int xOff = 0, yOff = 0;
+
+		if (player->deltaX < 0)
+			xOff = -20;
+		else
+			xOff = 20;
+
+		if (player->deltaY < 0)
+			yOff = -20;
+		else
+			yOff = 20;
+
+		int gridPosX = player->rect.x / 64.0;
+		int gridPosX_a = (player->rect.x + xOff) / 64.0;
+		int gridPosX_s = (player->rect.x - xOff) / 64.0;
+
+		int gridPosY = player->rect.y / 64.0;
+		int gridPosY_a = (player->rect.y + yOff) / 64.0;
+		int gridPosY_s = (player->rect.y - yOff) / 64.0;
+
 		if (e.type == SDL_KEYDOWN)
 		{
 			switch (e.key.keysym.sym)
 			{
 			case SDLK_w:
-				player->rect.x += (player->deltaX * 5);
-				player->rect.y += (player->deltaY * 5);
+				if (map->map[gridPosY * map->x + gridPosX_a] == 0)
+					player->rect.x += (player->deltaX * 5);
+				if (map->map[gridPosY_a * map->x + gridPosX] == 0)
+					player->rect.y += (player->deltaY * 5);
 				break;
 			case SDLK_s:
-				player->rect.x -= (player->deltaX * 5);
-				player->rect.y -= (player->deltaY * 5);
+				if (map->map[gridPosY * map->x + gridPosX_s] == 0)
+					player->rect.x -= (player->deltaX * 5);
+				if (map->map[gridPosY_s * map->x + gridPosX] == 0)
+					player->rect.y -= (player->deltaY * 5);
 				break;
 			case SDLK_a:
 				player->angle += 2;

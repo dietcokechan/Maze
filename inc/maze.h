@@ -19,7 +19,7 @@
 
 /*init_sdl.c*/
 int init_instance(SDL_Instance *);
-int poll_events(SDL_Instance *, Player *);
+int poll_events(SDL_Instance *, Player *, Map *);
 void close_sdl(SDL_Instance *);
 
 /*raycast.c*/
@@ -41,7 +41,7 @@ void draw_3D_walls(SDL_Instance *, Player *, float rA,
 void render_textures(SDL_Instance *instance, SDL_Rect *dest, int i);
 
 /*helpers.c*/
-int fix_angle(int);
+int fix_angle(float);
 float degToRad(float);
 
 /*file_handling.c*/
