@@ -19,14 +19,14 @@
 
 /*init_sdl.c*/
 int init_instance(SDL_Instance *);
-int poll_events(SDL_Instance *, Player *, Map *);
+int poll_events(SDL_Instance *, Player *);
 void close_sdl(SDL_Instance *);
 
 /*raycast.c*/
 void calculate_vertical_rays(Player *, Map *, float rA,
-	 SDL_Instance *, float *distV, float *vX, float *vY);
+	 float *distV, float *vX, float *vY);
 void calculate_horizontal_rays(Player *, Map *, float rA,
-	 SDL_Instance *, float *distH, float *hX, float *hY);
+	 float *distH, float *hX, float *hY);
 void raycast(Player *, SDL_Instance *, Map *map);
 
 /*display.c*/
@@ -38,7 +38,7 @@ void draw_3D_walls(SDL_Instance *, Player *, float rA,
 	 Map *, float distH, int r);
 
 /*textures.c*/
-void render_textures(SDL_Instance *instance, SDL_Rect *dest, SDL_Rect *src, int i);
+void render_textures(SDL_Instance *instance, SDL_Rect *dest, int i);
 
 /*helpers.c*/
 int fix_angle(int);

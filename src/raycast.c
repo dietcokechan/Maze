@@ -11,7 +11,7 @@
  * @vY: y of vertical ray
  */
 void calculate_vertical_rays(Player *player, Map *map, float rA,
-		 SDL_Instance *instance, float *distV, float *vX, float *vY)
+		 float *distV, float *vX, float *vY)
 {
 	int depth, mX, mY, mPos;
 	float rX, rY, xOffset, yOffset;
@@ -73,7 +73,7 @@ void calculate_vertical_rays(Player *player, Map *map, float rA,
  * @hY: y of horizontal ray
  */
 void calculate_horizontal_rays(Player *player, Map *map, float rA,
-		 SDL_Instance *instance, float *distH, float *hX, float *hY)
+		 float *distH, float *hX, float *hY)
 {
 	int depth, mX, mY, mPos;
 	float rX, rY, xOffset, yOffset;
@@ -143,8 +143,8 @@ void raycast(Player *player, SDL_Instance *instance, Map *map)
 		rX = player->rect.x;
 		rY = player->rect.y;
 
-		calculate_vertical_rays(player, map, rA, instance, &distV, &vX, &vY);
-		calculate_horizontal_rays(player, map, rA, instance, &distH, &hX, &hY);
+		calculate_vertical_rays(player, map, rA, &distV, &vX, &vY);
+		calculate_horizontal_rays(player, map, rA, &distH, &hX, &hY);
 
 		if (distV < distH)
 		{
@@ -164,7 +164,7 @@ void raycast(Player *player, SDL_Instance *instance, Map *map)
 		draw_3D_walls(instance, player, rA, map, distH, r);
 
 		/* draw 2D rays */
-		// if (instance->minimap)
+		if (instance->minimap)
 			draw_rays(instance, player, rX, rY);
 
 		rA = fix_angle(rA - 1);

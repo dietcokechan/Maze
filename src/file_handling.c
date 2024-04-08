@@ -22,7 +22,7 @@ FILE *open_file(char *filename)
 	fp = fopen(filename, "r");
 	if (!fp)
 	{
-		printf(stderr, "Error: Can't open file %s\n", filename);
+		printf("Error: Can't open file %s\n", filename);
 		exit(EXIT_FAILURE);
 	}
 
@@ -37,7 +37,6 @@ FILE *open_file(char *filename)
 Map read_file(FILE *fp)
 {
 	Map map = {0, 0, 0, NULL};
-	int i = 0;
 	int capacity = 100;
 	int *integers = (int *)malloc(capacity * sizeof(int));
 	int count = 0;

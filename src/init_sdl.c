@@ -55,7 +55,7 @@ int init_instance(SDL_Instance *instance)
  * @map: map instance
  * Return: 0 or 1
  */
-int poll_events(SDL_Instance *instance, Player *player, Map *map)
+int poll_events(SDL_Instance *instance, Player *player)
 {
 	SDL_Event e;
 

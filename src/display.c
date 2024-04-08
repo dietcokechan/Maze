@@ -7,13 +7,8 @@
  */
 void draw_player(Player *player, SDL_Instance *instance)
 {
-	SDL_SetRenderDrawColor(instance->renderer, 0x80, 0x80, 0X20, 0xFF);
+	SDL_SetRenderDrawColor(instance->renderer, 0x80, 0x80, 0X20, 200);
 	SDL_RenderFillRect(instance->renderer, &player->rect);
-	/* SDL_RenderDrawPoint(instance->renderer, player->rect.x, player->rect.y);
-	SDL_RenderDrawLine(instance->renderer, player->rect.x + 5,
-	player->rect.y + 5,
-	player->rect.x + player->deltaX * 20,
-	player->rect.y + player->deltaY * 20); */
 }
 
 /**
@@ -30,9 +25,9 @@ void draw_map(Map *map, SDL_Instance *instance)
 		for (x = 0; x < map->x; x++)
 		{
 			if (map->map[y * map->x + x] >= 1)
-				SDL_SetRenderDrawColor(instance->renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+				SDL_SetRenderDrawColor(instance->renderer, 0xFF, 0xFF, 0xFF, 200);
 			else
-				SDL_SetRenderDrawColor(instance->renderer, 0x00, 0x00, 0x00, 0xFF);
+				SDL_SetRenderDrawColor(instance->renderer, 0x00, 0x00, 0x00, 200);
 			SDL_Rect rect = {
 				x * map->size + 1,
 				y * map->size + 1,
@@ -50,17 +45,17 @@ void draw_map(Map *map, SDL_Instance *instance)
  */
 void draw_decoration(SDL_Instance *instance)
 {
-	SDL_SetRenderDrawColor(instance->renderer, 0x40, 0x60, 0x90, 0xFF);
+	SDL_SetRenderDrawColor(instance->renderer, 0x20, 0x40, 0x60, 0xFF);
 	SDL_Rect rect1 = {MINIMAP_W, 0, MINIMAP_W, MINIMAP_H};
 	
 	SDL_RenderFillRect(instance->renderer, &rect1);
 
-	SDL_SetRenderDrawColor(instance->renderer, 0x20, 0x60, 0x40, 0xFF);
+	SDL_SetRenderDrawColor(instance->renderer, 0x20, 0x20, 0x20, 0xFF);
 	SDL_Rect rect2 = {MINIMAP_W, MINIMAP_H, MINIMAP_W, MINIMAP_H};
 
 	SDL_RenderFillRect(instance->renderer, &rect2);
 
-	for (int i = 0; i < 32; i++)
+	for (int i = 0; i < 34; i++)
 	{
 		SDL_Point points[5] = {
 			{i, i},
@@ -70,7 +65,7 @@ void draw_decoration(SDL_Instance *instance)
 			{i, i}
 		};
 
-		SDL_SetRenderDrawColor(instance->renderer, 200, 200, 200, 255);
+		SDL_SetRenderDrawColor(instance->renderer, 0, 0, 0, 255);
 		SDL_RenderDrawLines(instance->renderer, points, 5);
 	}
 }
@@ -83,7 +78,7 @@ void draw_decoration(SDL_Instance *instance)
  */
 void draw_rays(SDL_Instance *instance, Player *player, float rX, float rY)
 {
-	SDL_SetRenderDrawColor(instance->renderer, 0, 255, 0, 255);
+	SDL_SetRenderDrawColor(instance->renderer, 0, 255, 0, 200);
 	SDL_RenderDrawLine(instance->renderer,
 							player->rect.x + 5, player->rect.y + 5, rX, rY);
 }
@@ -117,7 +112,6 @@ void draw_3D_walls(SDL_Instance *instance, Player *player,
 	for (i = 0; i < 8; i++)
 	{
 		SDL_Rect dest = {r * 8 + i + MINIMAP_W, lineOff, 1, line_height};
-		SDL_Rect src = {0, 0, i * 12 + 1, 96};
-		render_textures(instance, &dest, &src, i);
+		render_textures(instance, &dest, i);
 	}
 }

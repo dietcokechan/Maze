@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 {
 	char *map_path;
 	SDL_Instance instance = {NULL, NULL, NULL, NULL, 0, 0};
-	Player player = {{200, 400, 10, 10}, 90.0, 0.0, 0.0};
+	Player player = {{200, 400, 10, 10}, 90.0, 0.0, 0.0, 0.0, 0.0};
 	Map map = {0, 0, 0, NULL};
 
 	player.deltaX = cos(degToRad(player.angle));
@@ -27,19 +27,19 @@ int main(int argc, char **argv)
 	if (init_instance(&instance) != 0)
 		return (1);
 
-	while (poll_events(&instance, &player, &map) != 1)
+	while (poll_events(&instance, &player) != 1)
 	{
 		SDL_GetRenderDrawColor(instance.renderer, 0, 0, 0, 0);
 		SDL_RenderClear(instance.renderer);
-		poll_events(&instance, &player, &map);
+		poll_events(&instance, &player);
 		draw_decoration(&instance);
-		// if (instance.minimap)
+		if (instance.minimap)
 		{
 			draw_map(&map, &instance);
 			draw_player(&player, &instance);
 		}
 		raycast(&player, &instance, &map);
-		SDL_SetRenderDrawColor(instance.renderer, 0x90, 0x90, 0x90, 0xFF);
+		SDL_SetRenderDrawColor(instance.renderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_SetRenderDrawBlendMode(instance.renderer, SDL_BLENDMODE_BLEND);
 		SDL_RenderPresent(instance.renderer);
 	}
