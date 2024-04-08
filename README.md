@@ -14,8 +14,8 @@
 
 Welcome to the 3D Maze Project README! This project explores the exciting world of 3D graphics and gaming by implementing a maze using raycasting techniques. Leveraging the power of OpenGL and C programming, this project combines creativity with technical prowess to provide an immersive and interactive experience. Follow along to dive into the intricacies of raycasting, OpenGL rendering, and maze navigation in a challenging 3D environment. Let's embark on this journey together into the fascinating realm of 3D mazes!
 
-<a href="https://imgur.com/3aM3UNy"><img src="https://i.imgur.com/3aM3UNy.png" title="source: imgur.com" width="500" height="200" /></a>
-<a href="https://imgur.com/VrMi7Qr"><img src="https://i.imgur.com/VrMi7Qr.png" title="source: imgur.com" width="500" height="200" /></a>
+<a href="https://imgur.com/3aM3UNy"><img src="https://i.imgur.com/3aM3UNy.png" title="source: imgur.com" width="400" height="200" /></a>
+<a href="https://imgur.com/VrMi7Qr"><img src="https://i.imgur.com/VrMi7Qr.png" title="source: imgur.com" width="400" height="200" /></a>
 
 ## Installation
 
