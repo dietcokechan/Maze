@@ -61,12 +61,13 @@ Note: `base` is the name of the file containing the map to be rendered inside th
 | `S` or `DOWN` Arrow | Move backward |
 | `A` or `LEFT` Arrow | Turn left |
 | `S` or `RIGHT` Arrow | Turn right |
-| `M` | Turn on/off map |
+| `M` | Toggle map on/off |
 
 ## Contributing
 
 - Read the source files in `src` folder and the header files in `inc` folder.
-- Clone the repo and make a new branch: `$ git checkout https://github.com/dietcokechan/Maze -b [name_of_new_branch].`
+- Clone the repo and make a new branch: <br>
+    `$ git checkout https://github.com/dietcokechan/Maze -b [name_of_new_branch].`
 - Add a feature, fix a bug, or refactor code.
 - Write/update tests for the changes you made, if necessary.
 - Update `README.md`, if necessary.
