@@ -2,13 +2,13 @@
 
 ## Table of Contents
 
-- [Introduction](https://github.com/dietcokechan/Maze/edit/main/README.md#introduction)
-- [Installation](https://github.com/dietcokechan/Maze/edit/main/README.md#installation)
-- [Usage](https://github.com/dietcokechan/Maze/edit/main/README.md#usage)
-- [Contributing](https://github.com/dietcokechan/Maze/edit/main/README.md#contributing)
-- [Related Projects](https://github.com/dietcokechan/Maze/edit/main/README.md#related-projects)
-- [Licensing](https://github.com/dietcokechan/Maze/edit/main/README.md#licensing)
-- [Authors](https://github.com/dietcokechan/Maze/edit/main/README.md#authors)
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [Related Projects](#related-projects)
+- [Licensing](#licensing)
+- [Authors](#authors)
 
 ## Introduction
 
